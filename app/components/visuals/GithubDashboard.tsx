@@ -15,31 +15,54 @@ export default function GithubDashboard() {
     { name: "C", percent: 16, color: "#16A34A", bytes: "80k" }
   ]);
 
-  // Animate stats counter on entry
+  // Fetch and animate stats counter on entry
   useEffect(() => {
-    const targetCommits = 494;
-    const targetStars = 2;
-    const targetRepos = 8;
+    let targetCommits = 494;
+    let targetStars = 2;
+    let targetRepos = 8;
 
-    let c = 0;
-    let s = 0;
-    let r = 0;
-
-    const interval = setInterval(() => {
-      c = Math.min(targetCommits, c + Math.ceil(targetCommits / 20));
-      s = Math.min(targetStars, s + Math.ceil(targetStars / 20));
-      r = Math.min(targetRepos, r + Math.ceil(targetRepos / 20));
-
-      setCommits(c);
-      setStars(s);
-      setRepos(r);
-
-      if (c === targetCommits && s === targetStars && r === targetRepos) {
-        clearInterval(interval);
+    async function fetchGithubStats() {
+      try {
+        const res = await fetch("https://api.github.com/users/VaishnaviRai287");
+        if (res.ok) {
+          const data = await res.json();
+          targetStars = typeof data.followers === "number" ? data.followers : targetStars;
+          targetRepos = typeof data.public_repos === "number" ? data.public_repos : targetRepos;
+        }
+      } catch (err) {
+        console.error("Failed to fetch GitHub stats:", err);
+      } finally {
+        startAnimation();
       }
-    }, 45);
+    }
 
-    return () => clearInterval(interval);
+    let interval: NodeJS.Timeout;
+
+    function startAnimation() {
+      let c = 0;
+      let s = 0;
+      let r = 0;
+
+      interval = setInterval(() => {
+        c = Math.min(targetCommits, c + Math.ceil(targetCommits / 20));
+        s = targetStars > 0 ? Math.min(targetStars, s + Math.ceil(targetStars / 20)) : 0;
+        r = targetRepos > 0 ? Math.min(targetRepos, r + Math.ceil(targetRepos / 20)) : 0;
+
+        setCommits(c);
+        setStars(s);
+        setRepos(r);
+
+        if (c === targetCommits && s === targetStars && r === targetRepos) {
+          clearInterval(interval);
+        }
+      }, 45);
+    }
+
+    fetchGithubStats();
+
+    return () => {
+      if (interval) clearInterval(interval);
+    };
   }, []);
 
   return (
