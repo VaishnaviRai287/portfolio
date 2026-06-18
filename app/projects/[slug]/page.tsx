@@ -5,6 +5,7 @@ import { Header } from "./header";
 import "./mdx.css";
 import { ReportView } from "./view";
 import { Redis } from "@upstash/redis";
+import PipelineGraph from "@/app/components/visuals/PipelineGraph";
 
 export const dynamic = "force-dynamic";
 
@@ -30,6 +31,10 @@ export default async function PostPage({ params }: Props) {
     <div className="bg-[#F5EFEB] min-h-screen">
       <Header project={project} views={views} />
       <ReportView slug={project.slug} />
+
+      <div className="max-w-3xl mx-auto px-4 pt-12">
+        <PipelineGraph slug={project.slug} />
+      </div>
 
       <article className="px-4 py-12 mx-auto prose prose-stone prose-quoteless text-stone-850">
         <Mdx code={project.body.code} />
