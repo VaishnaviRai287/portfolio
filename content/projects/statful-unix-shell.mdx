@@ -1,0 +1,16 @@
+---
+title: "Stateful UNIX Shell"
+description: A Unix-like shell written in C featuring pipelines, redirection, persistent session state, and full job control using Unix process groups and signals.
+date: "2025-11-10"
+published: true
+repository: VaishnaviRai287/Statful_UNIX_Shell-
+---
+
+### Stateful UNIX Shell
+
+A lightweight, high-performance Unix shell written in C from scratch. Implements shell semantics, session persistence, and job control directly through system calls.
+
+#### Key Features:
+- **Session Persistence**: Maintains environment variables, path shortcuts, and command history across restarts.
+- **Pipelines & Redirection**: Parses and executes arbitrary-depth pipelines (`cmd1 | cmd2 | cmd3`) and standard file descriptor redirection (`<`, `>`, `2>`).
+- **Job Control**: Handles background execution (`&`), foreground switching (`fg`), background switching (`bg`), and signal routing (Ctrl+C, Ctrl+Z).

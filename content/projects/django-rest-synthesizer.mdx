@@ -1,0 +1,17 @@
+---
+title: "APIForge (Django Compiler)"
+description: Engineered a compiler translating a declarative DSL into production-ready Django REST backends using a custom lexer, parser, and code-generation pipeline.
+date: "2026-05-15"
+published: true
+repository: VaishnaviRai287/Django-Rest-Synthesizer
+---
+
+### APIForge: Django Compiler & Schema Evolution Engine
+
+APIForge is a high-performance compiler and schema evolution engine that translates a declarative domain-specific language (DSL) into production-ready Django REST Framework backends.
+
+#### Core Capabilities:
+- **DSL Compilation**: Translates declarative DSL into standard Django components using a custom lexer, parser, and code-generation pipeline.
+- **Schema-Diff Heuristics**: Features a schema-diff engine with weighted matching heuristics to detect structural schema updates and prevent destructive database migrations.
+- **Dependency Graph Traversal**: Employs directed dependency graph traversal passes ($O(V + E)$) to trace database ForeignKey relationships, automatically regenerating affected serializers, viewsets, and models.
+- **Robust Semantic Validation**: Implements advanced linting, validation checks, and error-recovery options with helpful feedback, backed by unit/integration test suites achieving 87% test coverage.
