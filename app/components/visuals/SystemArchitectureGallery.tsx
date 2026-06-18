@@ -248,7 +248,7 @@ export default function SystemArchitectureGallery() {
     <div className="space-y-6">
       
       {/* Wall Grid Layout */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 border-t border-l border-[#E7E2D8] rounded-2xl overflow-hidden">
         {blueprints.map(bp => {
           const isHovered = hoveredBlueprintId === bp.id;
           return (
@@ -258,7 +258,7 @@ export default function SystemArchitectureGallery() {
               onMouseEnter={() => setHoveredBlueprintId(bp.id)}
               onMouseLeave={() => setHoveredBlueprintId(null)}
               onClick={() => setActiveBlueprint(bp)}
-              className="border border-[#E7E2D8] bg-[#FFFFFF] rounded-xl p-5 flex flex-col justify-between h-[280px] hover:border-[#111111]/30 transition duration-300 shadow-sm cursor-pointer relative"
+              className="border-r border-b border-[#E7E2D8] bg-[#FFFFFF] p-5 flex flex-col justify-between h-[19.5rem] hover:bg-[#FAF8F3]/30 transition duration-300 shadow-sm cursor-pointer relative"
               style={{
                 boxShadow: isHovered ? `0 10px 30px -10px ${bp.color}15` : "none"
               }}

@@ -50,11 +50,14 @@ const Counter = ({ target, suffix = "", duration = 1000 }: { target: number; suf
 
 export default function Home() {
   return (
-    <div className="min-h-screen bg-[#FAF8F3] text-[#111111] font-sans selection:bg-[#E7E2D8] flex flex-col justify-between">
+    <div className="relative min-h-screen bg-[#FAF8F3] text-[#111111] font-sans selection:bg-[#E7E2D8] flex flex-col justify-between overflow-x-hidden">
       
+      {/* Translucent background grid pattern */}
+      <div className="absolute inset-0 bg-grid-pattern pointer-events-none -z-10" />
+
       {/* Navigation Header */}
       <header className="w-full border-b border-[#E7E2D8] bg-[#FAF8F3]/80 backdrop-blur sticky top-0 z-50">
-        <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
+        <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
           <Link href="/" className="font-mono font-bold tracking-tight text-xs uppercase hover:opacity-75 transition duration-200">
             vaishnavi_rai.sys
           </Link>
@@ -73,7 +76,7 @@ export default function Home() {
       </header>
 
       {/* Main Container */}
-      <main className="max-w-6xl mx-auto px-6 py-16 space-y-24 w-full flex-1">
+      <main className="max-w-7xl mx-auto px-6 py-16 space-y-24 w-full flex-1">
         
         {/* Hero Section */}
         <section className="relative overflow-hidden border border-[#E7E2D8] bg-[#FFFFFF] rounded-2xl p-8 md:p-12 shadow-sm">

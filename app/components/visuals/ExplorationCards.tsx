@@ -109,7 +109,7 @@ export default function ExplorationCards() {
   ];
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6 select-none">
+    <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 border-t border-l border-[#E7E2D8] rounded-2xl overflow-hidden select-none">
       {cards.map(card => {
         const isHovered = hoveredCard === card.id;
         return (
@@ -118,9 +118,9 @@ export default function ExplorationCards() {
             layout
             onMouseEnter={() => setHoveredCard(card.id)}
             onMouseLeave={() => setHoveredCard(null)}
-            className="border border-[#E7E2D8] bg-[#FFFFFF] rounded-xl overflow-hidden p-6 flex flex-col justify-between transition-all duration-300 hover:border-[#FAF8F3] hover:shadow-md h-[270px] relative"
+            className="border-r border-b border-[#E7E2D8] bg-[#FFFFFF] overflow-hidden p-6 flex flex-col justify-between transition-all duration-300 hover:bg-[#FAF8F3]/30 h-[18.5rem] relative"
             style={{
-              boxShadow: isHovered ? `0 10px 25px -5px ${card.color}10` : "none"
+              boxShadow: isHovered ? `inset 0 0 20px rgba(0,0,0,0.01), 0 10px 25px -5px ${card.color}10` : "none"
             }}
           >
             {/* Base Header Content */}
@@ -158,7 +158,7 @@ export default function ExplorationCards() {
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: 15 }}
                   transition={{ duration: 0.2 }}
-                  className="absolute inset-0 bg-white p-6 flex flex-col justify-between z-20 border border-[#E7E2D8] rounded-xl"
+                  className="absolute inset-0 bg-white p-6 flex flex-col justify-between z-20 border-r border-b border-[#E7E2D8]"
                 >
                   <div className="space-y-4">
                     <div className="flex items-center justify-between border-b border-[#E7E2D8] pb-2">

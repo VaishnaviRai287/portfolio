@@ -2,9 +2,39 @@
 @tailwind components;
 @tailwind utilities;
 
+html {
+  font-size: 110%;
+}
+
 @layer base {
   .text-edge-outline {
     -webkit-text-stroke: 1px rgba(28, 25, 23, 0.12);
+  }
+}
+
+@layer utilities {
+  /* Scale and map custom pixel text utilities to rem units */
+  .text-\[8px\] {
+    font-size: 0.675rem !important; /* ~11.8px (was 8px) */
+  }
+  .text-\[9px\] {
+    font-size: 0.75rem !important; /* ~13.2px (was 9px) */
+  }
+  .text-\[10px\] {
+    font-size: 0.8rem !important; /* ~14px (was 10px) */
+  }
+  .text-\[11px\] {
+    font-size: 0.85rem !important; /* ~15px (was 11px) */
+  }
+  .text-\[12px\] {
+    font-size: 0.9rem !important; /* ~15.8px (was 12px) */
+  }
+
+  .bg-grid-pattern {
+    background-size: 50px 50px;
+    background-image: 
+      linear-gradient(to right, rgba(17, 17, 17, 0.025) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(17, 17, 17, 0.025) 1px, transparent 1px);
   }
 }
 
