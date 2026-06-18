@@ -19,7 +19,6 @@ import GithubDashboard from "./components/visuals/GithubDashboard";
 
 const navigation = [
   { name: "Projects Showcase", href: "/projects" },
-  { name: "Contact Index", href: "/contact" },
 ];
 
 const Counter = ({ target, suffix = "", duration = 1000 }: { target: number; suffix?: string; duration?: number }) => {

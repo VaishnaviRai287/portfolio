@@ -194,31 +194,32 @@ export default function MLVisualizerVisual() {
             <div className="space-y-2">
               <span className="text-[10px] font-mono font-bold uppercase tracking-widest text-[#5C5C5C]">Layer Weight Strengths</span>
               
-              <div className="border border-[#E7E2D8] bg-[#FFFFFF] rounded p-3 flex items-center justify-between relative h-20">
-                {/* Visualizing neural weights path */}
-                <div className="flex flex-col justify-around h-full">
-                  <div className="w-3 h-3 rounded-full bg-[#2563EB] relative" />
-                  <div className="w-3 h-3 rounded-full bg-[#2563EB] relative" />
-                </div>
-
-                {/* Hidden layer nodes */}
-                <div className="flex flex-col justify-around h-full">
-                  <div className="w-3 h-3 rounded-full bg-[#EA580C] relative" />
-                  <div className="w-3 h-3 rounded-full bg-[#EA580C] relative" />
-                  <div className="w-3 h-3 rounded-full bg-[#EA580C] relative" />
-                </div>
-
-                {/* Output layer node */}
-                <div className="w-3 h-3 rounded-full bg-[#16A34A] relative animate-pulse" />
-
-                {/* Animated svg connections */}
-                <svg className="absolute inset-0 w-full h-full p-2 pointer-events-none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M 15,15 L 75,10 M 15,15 L 75,32 M 15,15 L 75,55" fill="none" stroke="#2563EB" strokeWidth="1" opacity={isPlaying ? 0.6 : 0.2} />
-                  <path d="M 15,45 L 75,10 M 15,45 L 75,32 M 15,45 L 75,55" fill="none" stroke="#2563EB" strokeWidth="1.5" opacity={isPlaying ? 0.8 : 0.2} />
+              <div className="border border-[#E7E2D8] bg-[#FFFFFF] rounded p-3 flex items-center justify-center relative h-20">
+                <svg className="w-full h-full" viewBox="0 0 200 60">
+                  {/* Left layer to Middle layer connections */}
+                  <path d="M 25,15 L 100,10" fill="none" stroke="#2563EB" strokeWidth="1" opacity={isPlaying ? 0.6 : 0.2} />
+                  <path d="M 25,15 L 100,30" fill="none" stroke="#2563EB" strokeWidth="1" opacity={isPlaying ? 0.6 : 0.2} />
+                  <path d="M 25,15 L 100,50" fill="none" stroke="#2563EB" strokeWidth="1" opacity={isPlaying ? 0.6 : 0.2} />
+                  <path d="M 25,45 L 100,10" fill="none" stroke="#2563EB" strokeWidth="1.5" opacity={isPlaying ? 0.8 : 0.2} />
+                  <path d="M 25,45 L 100,30" fill="none" stroke="#2563EB" strokeWidth="1.5" opacity={isPlaying ? 0.8 : 0.2} />
+                  <path d="M 25,45 L 100,50" fill="none" stroke="#2563EB" strokeWidth="1.5" opacity={isPlaying ? 0.8 : 0.2} />
                   
-                  <path d="M 85,10 L 155,32" fill="none" stroke="#16A34A" strokeWidth="2" opacity={isPlaying ? 0.7 : 0.2} />
-                  <path d="M 85,32 L 155,32" fill="none" stroke="#E7E2D8" strokeWidth="0.5" opacity={0.3} />
-                  <path d="M 85,55 L 155,32" fill="none" stroke="#16A34A" strokeWidth="1" opacity={isPlaying ? 0.5 : 0.2} />
+                  {/* Middle layer to Right layer connections */}
+                  <path d="M 100,10 L 175,30" fill="none" stroke="#16A34A" strokeWidth="2" opacity={isPlaying ? 0.7 : 0.2} />
+                  <path d="M 100,30 L 175,30" fill="none" stroke="#E7E2D8" strokeWidth="0.5" opacity={0.3} />
+                  <path d="M 100,50 L 175,30" fill="none" stroke="#16A34A" strokeWidth="1" opacity={isPlaying ? 0.5 : 0.2} />
+
+                  {/* Left layer nodes (Blue) */}
+                  <circle cx="25" cy="15" r="4.5" fill="#2563EB" />
+                  <circle cx="25" cy="45" r="4.5" fill="#2563EB" />
+
+                  {/* Middle layer nodes (Orange) */}
+                  <circle cx="100" cy="10" r="4.5" fill="#EA580C" />
+                  <circle cx="100" cy="30" r="4.5" fill="#EA580C" />
+                  <circle cx="100" cy="50" r="4.5" fill="#EA580C" />
+
+                  {/* Right layer node (Green) */}
+                  <circle cx="175" cy="30" r="4.5" fill="#16A34A" className="animate-pulse" />
                 </svg>
               </div>
             </div>
@@ -227,14 +228,41 @@ export default function MLVisualizerVisual() {
           {/* Loss sparkline graph */}
           <div className="mt-4 pt-4 border-t border-[#E7E2D8] flex items-center justify-between gap-4">
             <span className="text-[10px] font-mono text-[#5C5C5C] uppercase flex items-center gap-1"><BarChart2 className="w-3.5 h-3.5" /> Convergence Trace</span>
-            <div className="h-6 flex-1 flex items-end justify-end gap-[2px]">
-              {lossHistory.map((lh, idx) => (
-                <div
-                  key={idx}
-                  className="w-1.5 bg-[#2563EB] rounded-t transition-all duration-300"
-                  style={{ height: `${Math.max(15, Math.min(100, lh * 100))}%` }}
-                />
-              ))}
+            <div className="h-6 flex-1 flex items-end justify-end">
+              {lossHistory.length > 0 && (
+                <svg className="w-full h-full" viewBox="0 0 100 30" preserveAspectRatio="none">
+                  <defs>
+                    <linearGradient id="sparkline-gradient" x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="0%" stopColor="#2563EB" stopOpacity="0.25" />
+                      <stop offset="100%" stopColor="#2563EB" stopOpacity="0.0" />
+                    </linearGradient>
+                  </defs>
+                  {/* Area gradient path */}
+                  <path
+                    d={`${lossHistory.map((lh, idx) => {
+                      const x = lossHistory.length > 1 ? (idx / (lossHistory.length - 1)) * 100 : 0;
+                      const maxLoss = 0.6;
+                      const y = 28 - (Math.min(maxLoss, lh) / maxLoss) * 24;
+                      return `${idx === 0 ? 'M' : 'L'} ${x.toFixed(1)} ${y.toFixed(1)}`;
+                    }).join(' ')} L 100 30 L 0 30 Z`}
+                    fill="url(#sparkline-gradient)"
+                  />
+                  {/* Line path */}
+                  <path
+                    d={lossHistory.map((lh, idx) => {
+                      const x = lossHistory.length > 1 ? (idx / (lossHistory.length - 1)) * 100 : 0;
+                      const maxLoss = 0.6;
+                      const y = 28 - (Math.min(maxLoss, lh) / maxLoss) * 24;
+                      return `${idx === 0 ? 'M' : 'L'} ${x.toFixed(1)} ${y.toFixed(1)}`;
+                    }).join(' ')}
+                    fill="none"
+                    stroke="#2563EB"
+                    strokeWidth="1.5"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+              )}
             </div>
           </div>
         </div>
