@@ -3,8 +3,6 @@ import { allProjects } from "contentlayer/generated";
 import { Mdx } from "@/app/components/mdx";
 import { Header } from "./header";
 import "./mdx.css";
-import { ReportView } from "./view";
-import { Redis } from "@upstash/redis";
 import PipelineGraph from "@/app/components/visuals/PipelineGraph";
 
 export const dynamic = "force-dynamic";
@@ -23,14 +21,9 @@ export default async function PostPage({ params }: Props) {
     notFound();
   }
 
-  const redis = Redis.fromEnv();
-  const views =
-    (await redis.get<number>(["pageviews", "projects", slug].join(":"))) ?? 0;
-
   return (
     <div className="bg-[#F5EFEB] min-h-screen">
-      <Header project={project} views={views} />
-      <ReportView slug={project.slug} />
+      <Header project={project} />
 
       <div className="max-w-3xl mx-auto px-4 pt-12">
         <PipelineGraph slug={project.slug} />

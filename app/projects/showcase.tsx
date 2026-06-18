@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
-import { Eye, Github, ArrowRight, Activity, Cpu, Binary } from "lucide-react";
+import { Github, ArrowRight, Activity, Cpu, Binary } from "lucide-react";
 import { Card } from "../components/card";
 
 type Project = {
@@ -16,10 +16,9 @@ type Project = {
 
 type Props = {
 	projects: Project[];
-	views: Record<string, number>;
 };
 
-export default function ProjectShowcase({ projects, views }: Props) {
+export default function ProjectShowcase({ projects }: Props) {
 	// Find the projects in the list
 	const modelObservability = projects.find(p => p.slug === "behavioral-model-observability-platform");
 	const restSynthesizer = projects.find(p => p.slug === "django-rest-synthesizer");
@@ -227,13 +226,6 @@ export default function ProjectShowcase({ projects, views }: Props) {
 									)}
 								</time>
 							)}
-							<span>•</span>
-							<span className="flex items-center gap-1">
-								<Eye className="w-3.5 h-3.5" />
-								{Intl.NumberFormat("en-US", { notation: "compact" }).format(
-									views[activeDetails.project?.slug || ""] ?? 0,
-								)} views
-							</span>
 						</div>
 
 						<h3 className="text-2xl font-bold tracking-tight text-stone-900 font-display">
@@ -299,12 +291,6 @@ export default function ProjectShowcase({ projects, views }: Props) {
 														</time>
 													) : (
 														<span>SOON</span>
-													)}
-												</span>
-												<span className="text-stone-400 text-xs flex items-center gap-1">
-													<Eye className="w-3.5 h-3.5" />{" "}
-													{Intl.NumberFormat("en-US", { notation: "compact" }).format(
-														views[project.slug] ?? 0,
 													)}
 												</span>
 											</div>

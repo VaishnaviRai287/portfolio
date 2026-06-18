@@ -1,26 +1,11 @@
 import React from "react";
 import { allProjects } from "contentlayer/generated";
 import { Navigation } from "../components/nav";
-import { Redis } from "@upstash/redis";
 import ProjectShowcase from "./showcase";
 
 export const dynamic = "force-dynamic";
 
 export default async function ProjectsPage() {
-  const redis = Redis.fromEnv();
-  
-  const keys = allProjects.length > 0
-    ? allProjects.map((p) => ["pageviews", "projects", p.slug].join(":"))
-    : [];
-    
-  let views: Record<string, number> = {};
-  if (keys.length > 0) {
-    const viewCounts = await redis.mget<number[]>(...keys);
-    views = viewCounts.reduce((acc, v, i) => {
-      acc[allProjects[i].slug] = v ?? 0;
-      return acc;
-    }, {} as Record<string, number>);
-  }
 
   // Sort all published projects by date
   const projects = allProjects
@@ -45,7 +30,7 @@ export default async function ProjectsPage() {
         </div>
         <div className="w-full h-px bg-stone-200/80" />
 
-        <ProjectShowcase projects={projects} views={views} />
+        <ProjectShowcase projects={projects} />
       </div>
     </div>
   );
